@@ -44,6 +44,7 @@ app.get('/prepCall', async (req, res, next) => {
                 jwt: jwt
             });
         } else {
+            console.log("NOT SAME ORIGIN");
             res.sendStatus(401);
         }
     } catch (e) {
@@ -55,6 +56,8 @@ app.post('/onCall', async (req, res, next) => {
     try {
         const session = vcr.createSession();
         const voice = new Voice(session);
+
+        console.log('ANSWER,', req.body)
 
         await voice.onCallEvent({ callback: 'onEvent', conversationID: req.body.conversation_uuid });
 
@@ -76,8 +79,9 @@ app.post('/onCall', async (req, res, next) => {
 
 app.post('/onEvent', async (req, res, next) => {
     try {
-        console.log('event status is: ', req.body.status);
-        console.log('event direction is: ', req.body.direction);
+        //console.log('event status is: ', req.body.status);
+        //console.log('event direction is: ', req.body.direction);
+        console.log('EVENT: ', req.body)
         res.sendStatus(200);
     } catch (e) {
         next(e);
