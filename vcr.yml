@@ -1,0 +1,21 @@
+project:
+  name: vonage-in-app-genesys
+instance:
+  name: dev
+  runtime: nodejs16
+  region: aws.apse1
+  application-id: 12f1049c-c6b5-44a6-be84-dd36cc1630cb
+  entrypoint:
+    - node
+    - index.js
+  capabilities:
+    - voice
+  environment:
+    - name: VONAGE_NUMBER
+      value: "815035045718"
+debug:
+  name: debug
+  entrypoint:
+    - nodemon
+    - --inspect
+    - index.js
