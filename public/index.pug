@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/nexmo-client@9.2.3/dist/nexmoClient.js?module"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      script.
+        const url = '#{url}';
+        let currentCall;
+
+    <title> Click to call </title>
+  </head>
+  <body>
+    <button type="button" class="btn btn-primary" onclick="startCall()">Call Support</button>
+    script.
+      async function startCall() {
+        const response = await fetch('/prepCall');
+        const data = await response.json();
+        const jwt = data.jwt;
+        initSDK(jwt);
+      }
+
+      function initSDK(jwt) {
+        new NexmoClient()
+          .createSession(jwt).then(app => {
+            console.log("Connected");
+                app.callServer('', 'phone').then((call) => {
+                    console.log('Calling ...');
+                    currentCall = call;
+                }).catch((error) => {
+                    console.error(error);
+                });
+          }).catch((error) =>{
+            console.log(error);
+          })
+      }
+  </body>
+</html>
