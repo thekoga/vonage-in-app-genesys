@@ -1,6 +1,9 @@
-# Click to Call
+# Vonage In-App Voice to Genesys Cloud Sample
+
+Based on the Click to Call sample ()
 
 This project shows how to add a button to allow for visitors to your website to quickly get in touch using the Voice API.
+Calls are forwarded to the specified sip uri in vcr.yml
 
 To start debugging the project, open the "Run and Debug" menu on the left side. Then start the debugger by clicking the play button.
 

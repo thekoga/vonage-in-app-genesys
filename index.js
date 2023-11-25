@@ -57,19 +57,26 @@ app.post('/onCall', async (req, res, next) => {
         const session = vcr.createSession();
         const voice = new Voice(session);
 
-        console.log('ANSWER,', req.body)
-
         await voice.onCallEvent({ callback: 'onEvent', conversationID: req.body.conversation_uuid });
+
+        console.log('ANSWER:', req.body)
+        console.log('THIS IS THE FROM  ', JSON.parse(req.body.custom_data).customFrom)
 
         res.json([
             {
-                action: 'talk',
-                text: 'You will be connected with an agent shortly.',
+                "action": "talk",
+                "text": "<speak><break time='0.5s'/>エージェントにお繋ぎします。</speak>",
+                "language": "ja-JP"
             },
             {
-                action: 'stream',
-                streamUrl: ['https://onhold2go.co.uk/song-demos/free/a-new-life-preview.mp3'],
-                loop: 0
+                "action":"connect",
+                "from": JSON.parse(req.body.custom_data).customFrom,
+                "endpoint": [
+                  {
+                      "type": "sip",
+                      "uri": process.env.SIP_URI
+                  }
+                ]
             }
         ]);
     } catch (e) {

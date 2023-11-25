@@ -11,8 +11,8 @@ instance:
   capabilities:
     - voice
   environment:
-    - name: VONAGE_NUMBER
-      value: "815011111111"
+    - name: SIP_URI
+      value: "sip:81311111111@example.byoc.xx.pure.cloud"
 debug:
   name: debug
   entrypoint:
