@@ -62,7 +62,7 @@ app.post('/onCall', async (req, res, next) => {
         console.log('ANSWER:', req.body)
         console.log('THIS IS THE FROM  ', JSON.parse(req.body.custom_data).customFrom)
 
-        res.json([
+        let ncco = [
             {
                 "action": "talk",
                 "text": "<speak><break time='0.5s'/>エージェントにお繋ぎします。</speak>",
@@ -78,7 +78,11 @@ app.post('/onCall', async (req, res, next) => {
                   }
                 ]
             }
-        ]);
+        ];
+
+        session.log("debug", "answer_url: ncco", ncco)
+
+        res.json(ncco);
     } catch (e) {
         next(e);
     }
