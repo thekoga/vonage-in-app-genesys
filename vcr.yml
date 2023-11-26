@@ -10,9 +10,10 @@ instance:
     - index.js
   capabilities:
     - voice
+    - rtc
   environment:
     - name: SIP_URI
-      value: "sip:81311111111@example.byoc.xx.pure.cloud"
+      value: "sip:81311111111@example.byoc.usw2.pure.cloud"
 debug:
   name: debug
   entrypoint:

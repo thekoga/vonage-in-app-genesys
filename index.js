@@ -29,7 +29,7 @@ app.get('/_/health', async (req, res) => {
 
 app.get('/', async (req, res, next) => {
     try {
-        res.send(pug.renderFile('public/index.pug'));
+        res.send(pug.renderFile('public/index.html'));
     } catch (e) {
         next(e);
     }
