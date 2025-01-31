@@ -2,7 +2,7 @@ project:
   name: vonage-in-app-genesys
 instance:
   name: dev
-  runtime: nodejs16
+  runtime: nodejs18
   region: aws.apse1
   application-id: aae48bdc-911e-4c6c-9030-06ecd8f70f6d
   entrypoint:
