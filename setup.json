@@ -1,11 +1,3 @@
 {
-  "data": [
-    {
-      "type": "PHONE_NUMBER",
-      "title": "Vonage Number",
-      "description": "You need to link a Vonage number to your application for calling.",
-      "features": ["VOICE"],
-      "name": "VONAGE_NUMBER"
-    }
-  ]
+
 }
