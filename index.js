@@ -1,6 +1,7 @@
 import { Voice, vcr } from '@vonage/vcr-sdk';
 import { Vonage } from '@vonage/server-sdk';
 import express from 'express';
+import crypto from 'crypto';
 import cors from 'cors';
 import pug from 'pug';
 
@@ -8,8 +9,10 @@ const app = express();
 const port = process.env.VCR_PORT;
 const vonage = new Vonage(
     {
-      applicationId: process.env.API_APPLICATION_ID,
-      privateKey: process.env.PRIVATE_KEY
+      apiKey: process.env.VCR_API_ACCOUNT_ID,
+      apiSecret: process.env.VCR_API_ACCOUNT_SECRET,
+      applicationId: process.env.VCR_API_APPLICATION_ID,
+      privateKey: process.env.VCR_PRIVATE_KEY
     }
 );
 
@@ -38,7 +41,8 @@ app.get('/', async (req, res, next) => {
 app.get('/prepCall', async (req, res, next) => {
     try {
         if (req.headers['sec-fetch-site'] === 'same-origin') {
-            const user = await vonage.users.createUser();
+            const username = generateRandomString();
+            const user = await vonage.users.createUser({ username: username });
             const jwt = generateJWT(user.name);
             res.json({
                 jwt: jwt
@@ -115,6 +119,13 @@ function generateJWT(username) {
     };
     
     return vcr.createVonageToken({ exp: nowTime + 86400, subject: username, aclPaths: aclPaths });;
+}
+
+function generateRandomString() {
+    const length = 10;
+    return crypto.randomBytes(Math.ceil(length / 2))
+        .toString('hex')
+        .slice(0, length);
 }
 
 app.listen(port, () => {
